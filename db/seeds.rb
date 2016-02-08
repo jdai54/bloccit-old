@@ -8,13 +8,17 @@ require "random_data"
 end
 posts = Post.all
 
-# Create Cmments
+# Create Comments
 100.times do
   Comment.create!(
     post: posts.sample,
     body: RandomData.random_paragraph
   )
 end
+
+Post.find_or_create_by(title: 'First Post', body: 'This is a test post')
+
+Comment.create_with(title: 'First Post').find_or_create_by(body: 'This looks nice')
 
 puts "Seed finished"
 puts "#{Post.count} posts created"
