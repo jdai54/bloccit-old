@@ -1,24 +1,24 @@
 class SponsoredPostsController < ApplicationController
   def show
-    @sponsoredpost = SponsoredPost.find(params[:id])
+    @sponsored_post = SponsoredPost.find(params[:id])
   end
 
   def new
     @topic = Topic.find(params[:id])
-    @sponsoredpost = SponsoredPost.new
+    @sponsored_post = SponsoredPost.new
   end
 
   def create
-    @sponsoredpost = SponsoredPost.new
-    @sponsoredpost.title = params[:sponsoredpost][:title]
-    @sponsoredpost.body = params[:sponsoredpost][:body]
-    @sponsoredpost.price = params[:sponsoredpost][:price]
+    @sponsored_post = SponsoredPost.new
+    @sponsored_post.title = params[:sponsoredpost][:title]
+    @sponsored_post.body = params[:sponsoredpost][:body]
+    @sponsored_post.price = params[:sponsoredpost][:price]
     @topic = Topic.find(params[:id])
-    @sponsoredpost.topic = @topic
+    @sponsored_post.topic = @topic
 
-    if @sponsoredpost.save
+    if @sponsored_post.save
       flash[:notice] = "Post was saved."
-      redirect_to [@sponsoredpost.topic, @sponsoredpost]
+      redirect_to [@sponsored_post.topic, @sponsored_post]
     else
       flash.now[:alert] = "There was an error saving the post. Please try again."
       render :new
@@ -26,18 +26,18 @@ class SponsoredPostsController < ApplicationController
   end
 
   def edit
-    @sponsoredpost = SponsoredPost.find(params[:id])
+    @sponsored_post = SponsoredPost.find(params[:id])
   end
 
   def update
-    @sponsoredpost = SponsoredPost.find(params[:id])
-    @sponsoredpost.title = params[:sponsoredpost][:title]
-    @sponsoredpost.body = params[:sponsoredpost][:body]
-    @sponsoredpost.price = params[:sponsoredpost][:price]
+    @sponsored_post = SponsoredPost.find(params[:id])
+    @sponsored_post.title = params[:sponsoredpost][:title]
+    @sponsored_post.body = params[:sponsoredpost][:body]
+    @sponsored_post.price = params[:sponsoredpost][:price]
 
-    if @sponsoredpost.save
+    if @sponsored_post.save
       flash[:notice] = "Sponsored Post was updated."
-      redirect_to @sponsoredpost
+      redirect_to @sponsored_post
     else
       flash.now[:alert] = "There was an error saving the post. Please try again."
       render :edit
