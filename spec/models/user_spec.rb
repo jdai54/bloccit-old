@@ -39,6 +39,9 @@ RSpec.describe User, type: :model do
     it "responds to member?" do
       expect(user).to respond_to(:member?)
     end
+
+    it "responds to moderator?" do
+      expect(user).to respond_to(:moderator?)
   end
 
   describe "roles" do
@@ -54,6 +57,27 @@ RSpec.describe User, type: :model do
       it "returns false for #admin?" do
         expect(user.admin?).to be_falsey
       end
+
+      it "returns false for #moderator?" do
+        expect(user.moderator?).to be_falsey
+      end
+    end
+
+    context "moderator user" do
+      before do
+        user.moderator!
+      end
+      it "returns true for #moderator?" do
+        expect(user.moderator?).to be_truthy
+      end
+
+      it "returns false for #admin?" do
+        expect(user.admin?).to be_falsey
+      end
+
+      it "returns false for #member?" do
+        expect(user.member?).to be_falsey
+      end
     end
 
     context "admin user" do
@@ -62,6 +86,10 @@ RSpec.describe User, type: :model do
       end
       it "returns false for #member?" do
         expect(user.member?).to be_falsey
+      end
+
+      it "returns false for #moderator?" do
+        expect(user.moderator?).to be_falsey
       end
 
       it "returns true for #admin?" do
@@ -86,6 +114,6 @@ RSpec.describe User, type: :model do
     it "should be an invalid user due to incorrectly formatted email address" do
       expect(user_with_invalid_email_format).to_not be_valid
     end
-
+  end
   end
 end
