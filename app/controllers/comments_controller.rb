@@ -5,6 +5,8 @@ class CommentsController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
     comment = @post.comments.new(comment_params)
+    @topic = Topic.find(params[:topic_id])
+    comment = @topic.comments.new(comment_params)
     comment.user = current_user
 
     if comment.save
@@ -19,6 +21,8 @@ class CommentsController < ApplicationController
   def destroy
     @post = Post.find(params[:post_id])
     comment = @post.comments.find(params[:id])
+    @topic = Topic.find(params[:topic_id])
+    comment = @topic.comments.find(params[:id])
 
     if comment.destroy
       flash[:notice] = "Comment was deleted."
